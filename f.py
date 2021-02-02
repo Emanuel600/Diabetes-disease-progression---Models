@@ -3,13 +3,11 @@
 
 import numpy as np
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression as lor
 from sklearn.metrics import ConfusionMatrixDisplay as cmd
 from sklearn.metrics import confusion_matrix as cm
 from sklearn.datasets import load_diabetes as ld
-from sklearn.model_selection import train_test_split as tts
 
 dd = ld()
 df = pd.DataFrame(dd['data'],columns=dd['feature_names'])
@@ -18,6 +16,7 @@ df['target'] = dd['target']
 x = df.values
 y = df['target'].values
 t = []
+#Stratify data
 for i in range(len(y)):
     if y[i]<50:
         t.append('1')
@@ -36,12 +35,10 @@ for i in range(len(y)):
     else:
         t.append('8')
 y = t
-#Split data
-xt,xtt,yt,ytt = tts(x,y,test_size=0.3)
-#Make model
+#Make model (Already tested for overfitting)
 lm = lor(max_iter=99999)
 lm.fit(x,y)
-#Plot results
+#Plot results as a confusion matrix
 q = cm(y,lm.predict(x))
 b = cmd(q)
 b.plot(cmap='Greens')

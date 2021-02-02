@@ -9,7 +9,6 @@ from sklearn.ensemble import RandomForestClassifier as rfc
 from sklearn.metrics import ConfusionMatrixDisplay as cmd
 from sklearn.metrics import confusion_matrix as cm
 from sklearn.datasets import load_diabetes as ld
-from sklearn.model_selection import train_test_split as tts
 
 dd = ld()
 df = pd.DataFrame(dd['data'],columns=dd['feature_names'])
@@ -36,9 +35,8 @@ for i in range(len(y)):
     else:
         t.append('8')
 y = t
-#Split data
-xt,xtt,yt,ytt = tts(x,y,test_size=0.3)
-#Make model
+
+#Make model | It doesn't overfit, but the performance is rather poor
 rm = rfc(n_estimators=20, max_depth=20, max_leaf_nodes=25, min_impurity_decrease=0.005)
 rm.fit(x,y)
 #Plot results

@@ -1,6 +1,6 @@
 #! /usr/bin/python3 
 # remeber to make file executable
-
+#It's performance is somewhere between RF and LR I think
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -9,7 +9,6 @@ from sklearn.neural_network import MLPClassifier as mlp
 from sklearn.metrics import ConfusionMatrixDisplay as cmd
 from sklearn.metrics import confusion_matrix as cm
 from sklearn.datasets import load_diabetes as ld
-from sklearn.model_selection import train_test_split as tts
 from sklearn.preprocessing import StandardScaler as ssc
 
 dd = ld()
@@ -41,7 +40,7 @@ for i in range(len(y)):
 y = t
 #Split data
 xt,xtt,yt,ytt = tts(x,y,test_size=0.3)
-#Make model
+#Make model | It's still a bit overfit, but I have no clue how to solve it. Guess I'll have to get better
 nm = mlp(max_iter=9999, hidden_layer_sizes=(100,4))
 nm.fit(x,y)
 #Plot results
